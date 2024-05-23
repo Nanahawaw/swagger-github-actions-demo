@@ -11,4 +11,8 @@ router.get('/', (req, res) => {
     res.json({ message: 'Example endpoint' });
 });
 
+router.get('/product', (req, res) => {
+    res.json({ message: 'Product endpoint' })
+})
+
 export default router;
