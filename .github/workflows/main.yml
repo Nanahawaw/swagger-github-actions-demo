@@ -10,29 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./server
 
-      - name: Generate Swagger documentation
-        run: node server/swagger.js
+    - name: Generate Swagger documentation
+      run: node server/swagger.js
 
-        - name: Copy Swagger UI assets
+    - name: Copy Swagger UI assets
       run: |
-        cp ./node_modules/swagger-ui-dist/swagger-ui.css ./
-        cp ./node_modules/swagger-ui-dist/swagger-ui-bundle.js ./
-        cp ./node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js ./
+        cp ./server/node_modules/swagger-ui-dist/swagger-ui.css ./
+        cp ./server/node_modules/swagger-ui-dist/swagger-ui-bundle.js ./
+        cp ./server/node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js ./
         cp ./server/swagger-output.json ./
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.DEPLOY_TOKEN }}
-          publish_dir: ./
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.DEPLOY_TOKEN }}
+        publish_dir: ./
