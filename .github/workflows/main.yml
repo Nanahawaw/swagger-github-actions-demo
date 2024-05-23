@@ -24,6 +24,13 @@ jobs:
       - name: Generate Swagger documentation
         run: node server/swagger.js
 
+        - name: Copy Swagger UI assets
+      run: |
+        cp ./node_modules/swagger-ui-dist/swagger-ui.css ./
+        cp ./node_modules/swagger-ui-dist/swagger-ui-bundle.js ./
+        cp ./node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js ./
+        cp ./server/swagger-output.json ./
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
